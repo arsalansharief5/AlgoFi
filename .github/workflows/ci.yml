@@ -54,16 +54,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests (only if test files exist)
-        shell: bash
-        run: |
-          set -e
-          if find . -type f \( -name "*.test.js" -o -name "*.spec.js" -o -name "*.test.ts" -o -name "*.spec.ts" \) | grep -q .; then
-            echo "Tests found. Running Jest..."
-            npm test -- --ci
-          else
-            echo "No test files found. Skipping backend tests."
-          fi
+      - name: Run tests (Jest)
+        run: npm test -- --ci --passWithNoTests
 
   smart_contract_compile:
     name: Smart Contracts - Compile PyTeal
